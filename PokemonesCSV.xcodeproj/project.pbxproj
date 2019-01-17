@@ -14,6 +14,9 @@
 		1F77C97B21E521BF0093E56B /* TabBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77C97A21E521BF0093E56B /* TabBarTests.swift */; };
 		1F77C98621E521BF0093E56B /* TabBarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77C98521E521BF0093E56B /* TabBarUITests.swift */; };
 		1F77C99421E523080093E56B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77C99321E523080093E56B /* TabBarController.swift */; };
+		FA0A9D7121F0240100A16F1C /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A9D7021F0240100A16F1C /* TableViewController.swift */; };
+		FA0A9D7321F0252400A16F1C /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A9D7221F0252400A16F1C /* Pokemon.swift */; };
+		FA185C6E21F02E5B00FA25C2 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA185C6D21F02E5B00FA25C2 /* PokemonCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,19 +37,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F77C96221E521BD0093E56B /* TabBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TabBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F77C96221E521BD0093E56B /* PokemonesCSV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonesCSV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F77C96521E521BD0093E56B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F77C96A21E521BD0093E56B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F77C96C21E521BF0093E56B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F77C96F21E521BF0093E56B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F77C97121E521BF0093E56B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1F77C97621E521BF0093E56B /* TabBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TabBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F77C97621E521BF0093E56B /* PokemonesCSVTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokemonesCSVTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F77C97A21E521BF0093E56B /* TabBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarTests.swift; sourceTree = "<group>"; };
 		1F77C97C21E521BF0093E56B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1F77C98121E521BF0093E56B /* TabBarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TabBarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F77C98121E521BF0093E56B /* PokemonesCSVUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokemonesCSVUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F77C98521E521BF0093E56B /* TabBarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarUITests.swift; sourceTree = "<group>"; };
 		1F77C98721E521BF0093E56B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F77C99321E523080093E56B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		FA0A9D7021F0240100A16F1C /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		FA0A9D7221F0252400A16F1C /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		FA185C6D21F02E5B00FA25C2 /* PokemonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,9 +93,9 @@
 		1F77C96321E521BD0093E56B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1F77C96221E521BD0093E56B /* TabBar.app */,
-				1F77C97621E521BF0093E56B /* TabBarTests.xctest */,
-				1F77C98121E521BF0093E56B /* TabBarUITests.xctest */,
+				1F77C96221E521BD0093E56B /* PokemonesCSV.app */,
+				1F77C97621E521BF0093E56B /* PokemonesCSVTests.xctest */,
+				1F77C98121E521BF0093E56B /* PokemonesCSVUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,7 +108,9 @@
 				1F77C96C21E521BF0093E56B /* Assets.xcassets */,
 				1F77C96E21E521BF0093E56B /* LaunchScreen.storyboard */,
 				1F77C97121E521BF0093E56B /* Info.plist */,
-				1F77C99321E523080093E56B /* TabBarController.swift */,
+				FA0A9D7421F0252B00A16F1C /* Model */,
+				FA185C6C21F02E1600FA25C2 /* CustomViews */,
+				FA0A9D6F21F022B100A16F1C /* ViewControllers */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -125,12 +133,37 @@
 			path = TabBarUITests;
 			sourceTree = "<group>";
 		};
+		FA0A9D6F21F022B100A16F1C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1F77C99321E523080093E56B /* TabBarController.swift */,
+				FA0A9D7021F0240100A16F1C /* TableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		FA0A9D7421F0252B00A16F1C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA0A9D7221F0252400A16F1C /* Pokemon.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA185C6C21F02E1600FA25C2 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				FA185C6D21F02E5B00FA25C2 /* PokemonCell.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1F77C96121E521BD0093E56B /* TabBar */ = {
+		1F77C96121E521BD0093E56B /* PokemonesCSV */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F77C98A21E521BF0093E56B /* Build configuration list for PBXNativeTarget "TabBar" */;
+			buildConfigurationList = 1F77C98A21E521BF0093E56B /* Build configuration list for PBXNativeTarget "PokemonesCSV" */;
 			buildPhases = (
 				1F77C95E21E521BD0093E56B /* Sources */,
 				1F77C95F21E521BD0093E56B /* Frameworks */,
@@ -140,14 +173,14 @@
 			);
 			dependencies = (
 			);
-			name = TabBar;
+			name = PokemonesCSV;
 			productName = TabBar;
-			productReference = 1F77C96221E521BD0093E56B /* TabBar.app */;
+			productReference = 1F77C96221E521BD0093E56B /* PokemonesCSV.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1F77C97521E521BF0093E56B /* TabBarTests */ = {
+		1F77C97521E521BF0093E56B /* PokemonesCSVTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F77C98D21E521BF0093E56B /* Build configuration list for PBXNativeTarget "TabBarTests" */;
+			buildConfigurationList = 1F77C98D21E521BF0093E56B /* Build configuration list for PBXNativeTarget "PokemonesCSVTests" */;
 			buildPhases = (
 				1F77C97221E521BF0093E56B /* Sources */,
 				1F77C97321E521BF0093E56B /* Frameworks */,
@@ -158,14 +191,14 @@
 			dependencies = (
 				1F77C97821E521BF0093E56B /* PBXTargetDependency */,
 			);
-			name = TabBarTests;
+			name = PokemonesCSVTests;
 			productName = TabBarTests;
-			productReference = 1F77C97621E521BF0093E56B /* TabBarTests.xctest */;
+			productReference = 1F77C97621E521BF0093E56B /* PokemonesCSVTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		1F77C98021E521BF0093E56B /* TabBarUITests */ = {
+		1F77C98021E521BF0093E56B /* PokemonesCSVUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F77C99021E521BF0093E56B /* Build configuration list for PBXNativeTarget "TabBarUITests" */;
+			buildConfigurationList = 1F77C99021E521BF0093E56B /* Build configuration list for PBXNativeTarget "PokemonesCSVUITests" */;
 			buildPhases = (
 				1F77C97D21E521BF0093E56B /* Sources */,
 				1F77C97E21E521BF0093E56B /* Frameworks */,
@@ -176,9 +209,9 @@
 			dependencies = (
 				1F77C98321E521BF0093E56B /* PBXTargetDependency */,
 			);
-			name = TabBarUITests;
+			name = PokemonesCSVUITests;
 			productName = TabBarUITests;
-			productReference = 1F77C98121E521BF0093E56B /* TabBarUITests.xctest */;
+			productReference = 1F77C98121E521BF0093E56B /* PokemonesCSVUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -204,7 +237,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1F77C95D21E521BD0093E56B /* Build configuration list for PBXProject "TabBar" */;
+			buildConfigurationList = 1F77C95D21E521BD0093E56B /* Build configuration list for PBXProject "PokemonesCSV" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -217,9 +250,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1F77C96121E521BD0093E56B /* TabBar */,
-				1F77C97521E521BF0093E56B /* TabBarTests */,
-				1F77C98021E521BF0093E56B /* TabBarUITests */,
+				1F77C96121E521BD0093E56B /* PokemonesCSV */,
+				1F77C97521E521BF0093E56B /* PokemonesCSVTests */,
+				1F77C98021E521BF0093E56B /* PokemonesCSVUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -256,7 +289,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA185C6E21F02E5B00FA25C2 /* PokemonCell.swift in Sources */,
 				1F77C96621E521BD0093E56B /* AppDelegate.swift in Sources */,
+				FA0A9D7321F0252400A16F1C /* Pokemon.swift in Sources */,
+				FA0A9D7121F0240100A16F1C /* TableViewController.swift in Sources */,
 				1F77C99421E523080093E56B /* TabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,12 +318,12 @@
 /* Begin PBXTargetDependency section */
 		1F77C97821E521BF0093E56B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1F77C96121E521BD0093E56B /* TabBar */;
+			target = 1F77C96121E521BD0093E56B /* PokemonesCSV */;
 			targetProxy = 1F77C97721E521BF0093E56B /* PBXContainerItemProxy */;
 		};
 		1F77C98321E521BF0093E56B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1F77C96121E521BD0093E56B /* TabBar */;
+			target = 1F77C96121E521BD0093E56B /* PokemonesCSV */;
 			targetProxy = 1F77C98221E521BF0093E56B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -438,7 +474,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dnky.TabBar;
+				PRODUCT_BUNDLE_IDENTIFIER = dnky.PokemonesCSV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,7 +491,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dnky.TabBar;
+				PRODUCT_BUNDLE_IDENTIFIER = dnky.PokemonesCSV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -478,7 +514,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TabBar.app/TabBar";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PokemonesCSV.app/PokemonesCSV";
 			};
 			name = Debug;
 		};
@@ -498,7 +534,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TabBar.app/TabBar";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PokemonesCSV.app/PokemonesCSV";
 			};
 			name = Release;
 		};
@@ -543,7 +579,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1F77C95D21E521BD0093E56B /* Build configuration list for PBXProject "TabBar" */ = {
+		1F77C95D21E521BD0093E56B /* Build configuration list for PBXProject "PokemonesCSV" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F77C98821E521BF0093E56B /* Debug */,
@@ -552,7 +588,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F77C98A21E521BF0093E56B /* Build configuration list for PBXNativeTarget "TabBar" */ = {
+		1F77C98A21E521BF0093E56B /* Build configuration list for PBXNativeTarget "PokemonesCSV" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F77C98B21E521BF0093E56B /* Debug */,
@@ -561,7 +597,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F77C98D21E521BF0093E56B /* Build configuration list for PBXNativeTarget "TabBarTests" */ = {
+		1F77C98D21E521BF0093E56B /* Build configuration list for PBXNativeTarget "PokemonesCSVTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F77C98E21E521BF0093E56B /* Debug */,
@@ -570,7 +606,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F77C99021E521BF0093E56B /* Build configuration list for PBXNativeTarget "TabBarUITests" */ = {
+		1F77C99021E521BF0093E56B /* Build configuration list for PBXNativeTarget "PokemonesCSVUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F77C99121E521BF0093E56B /* Debug */,

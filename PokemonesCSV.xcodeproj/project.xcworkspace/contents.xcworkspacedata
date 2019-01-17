@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:TabBar.xcodeproj">
+      location = "self:/Users/dmorenoar/Desktop/PokemonesCSV/PokemonesCSV.xcodeproj">
    </FileRef>
 </Workspace>
