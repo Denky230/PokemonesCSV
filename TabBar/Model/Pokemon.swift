@@ -12,35 +12,28 @@ class Pokemon {
     
     let sprite: UIImage
     let name: String
-    let type: String
-    private var _subtype: String!
-    var subtype: String {
-        get {
-            if let sub = self._subtype {
-                return sub
-            } else {
-                return ""
-            }
-        }
-        set(newValue) {
-            self._subtype = newValue
-        }
-    }
-    var description: String!
+    let type: PokemonType
+    let subtype: PokemonType
+    let description: String
     
-    init(sprite: UIImage, name: String, type: String) {
+    var isLiked: Bool = false
+    
+    init(sprite: UIImage, name: String, type: PokemonType, subtype: PokemonType, description: String) {
         self.sprite = sprite
         self.name = name
         self.type = type
-    }
-    
-    // TEST - Remove when every Pokemon has its own sprite
-    convenience init(name: String, type: String) {
-        self.init(sprite: UIImage(named: "pokemon")!, name: name, type: type)
-    }
-    
-    convenience init(name: String, type: String, subtype: String) {
-        self.init(name: name, type: type)
         self.subtype = subtype
+        self.description = description
+    }
+    convenience init(sprite: UIImage, name: String, type: PokemonType, description: String) {
+        self.init(sprite: sprite, name: name, type: type, subtype: .EMPTY, description: description)
+    }
+    
+    // TEST - Remove when ready to read from CSV
+    convenience init(name: String, type: PokemonType, subtype: PokemonType) {
+        self.init(sprite: UIImage(named: "pokemon")!, name: name, type: type, subtype: subtype, description: "")
+    }
+    convenience init(name: String, type: PokemonType) {
+        self.init(name: name, type: type, subtype: .EMPTY)
     }
 }

@@ -14,6 +14,8 @@
 		1F77C97B21E521BF0093E56B /* TabBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77C97A21E521BF0093E56B /* TabBarTests.swift */; };
 		1F77C98621E521BF0093E56B /* TabBarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77C98521E521BF0093E56B /* TabBarUITests.swift */; };
 		1F77C99421E523080093E56B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77C99321E523080093E56B /* TabBarController.swift */; };
+		1F86CB9E21F795B400AEB5CA /* PokemonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86CB9D21F795B400AEB5CA /* PokemonDetailsViewController.swift */; };
+		1FE7E47A2200C7BA00078731 /* PokemonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE7E4792200C7BA00078731 /* PokemonType.swift */; };
 		FA0A9D7121F0240100A16F1C /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A9D7021F0240100A16F1C /* TableViewController.swift */; };
 		FA0A9D7321F0252400A16F1C /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A9D7221F0252400A16F1C /* Pokemon.swift */; };
 		FA185C6E21F02E5B00FA25C2 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA185C6D21F02E5B00FA25C2 /* PokemonCell.swift */; };
@@ -50,6 +52,8 @@
 		1F77C98521E521BF0093E56B /* TabBarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarUITests.swift; sourceTree = "<group>"; };
 		1F77C98721E521BF0093E56B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F77C99321E523080093E56B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		1F86CB9D21F795B400AEB5CA /* PokemonDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsViewController.swift; sourceTree = "<group>"; };
+		1FE7E4792200C7BA00078731 /* PokemonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonType.swift; sourceTree = "<group>"; };
 		FA0A9D7021F0240100A16F1C /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		FA0A9D7221F0252400A16F1C /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		FA185C6D21F02E5B00FA25C2 /* PokemonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCell.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 				1F77C96C21E521BF0093E56B /* Assets.xcassets */,
 				1F77C96E21E521BF0093E56B /* LaunchScreen.storyboard */,
 				1F77C97121E521BF0093E56B /* Info.plist */,
+				1FE7E4782200C79300078731 /* Constants */,
 				FA0A9D7421F0252B00A16F1C /* Model */,
 				FA185C6C21F02E1600FA25C2 /* CustomViews */,
 				FA0A9D6F21F022B100A16F1C /* ViewControllers */,
@@ -133,11 +138,20 @@
 			path = TabBarUITests;
 			sourceTree = "<group>";
 		};
+		1FE7E4782200C79300078731 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				1FE7E4792200C7BA00078731 /* PokemonType.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		FA0A9D6F21F022B100A16F1C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				1F77C99321E523080093E56B /* TabBarController.swift */,
 				FA0A9D7021F0240100A16F1C /* TableViewController.swift */,
+				1F86CB9D21F795B400AEB5CA /* PokemonDetailsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -292,8 +306,10 @@
 				FA185C6E21F02E5B00FA25C2 /* PokemonCell.swift in Sources */,
 				1F77C96621E521BD0093E56B /* AppDelegate.swift in Sources */,
 				FA0A9D7321F0252400A16F1C /* Pokemon.swift in Sources */,
+				1F86CB9E21F795B400AEB5CA /* PokemonDetailsViewController.swift in Sources */,
 				FA0A9D7121F0240100A16F1C /* TableViewController.swift in Sources */,
 				1F77C99421E523080093E56B /* TabBarController.swift in Sources */,
+				1FE7E47A2200C7BA00078731 /* PokemonType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

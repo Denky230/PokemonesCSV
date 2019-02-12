@@ -11,7 +11,7 @@ import UIKit
 class TabBarController: UITabBarController {
 
     let spriteNames: [String] = [
-        "bomb", "panda"
+        "egg", "pokeball", "search"
     ]
     
     override func viewDidLoad() {

@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bombSelected.png",
+      "filename" : "pokeballUnselected.png",
       "scale" : "1x"
     },
     {
