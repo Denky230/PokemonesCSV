@@ -11,7 +11,7 @@ import UIKit
 class TabBarController: UITabBarController {
 
     let spriteNames: [String] = [
-        "egg", "pokeball", "search"
+        "profile", "home", "search"
     ]
     
     override func viewDidLoad() {
@@ -27,10 +27,10 @@ class TabBarController: UITabBarController {
             
             // Set Unselected image
             tabBarItem.image =
-                UIImage(named: spriteNames[i] + "Unselected")?.withRenderingMode(.alwaysOriginal)
+                UIImage(named: spriteNames[i] + "_unselected")?.withRenderingMode(.alwaysOriginal)
             // Set Selected image
             tabBarItem.selectedImage =
-                UIImage(named: spriteNames[i] + "Selected")?.withRenderingMode(.alwaysOriginal)
+                UIImage(named: spriteNames[i] + "_selected")?.withRenderingMode(.alwaysOriginal)
             
             // Set insets
             let tabBarHeight: CGFloat = tabBar.frame.height
