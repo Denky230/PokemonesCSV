@@ -15,7 +15,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    var displayPokemones = PokeData.pokemones
+    var displayPokemones: [Pokemon] = PokeData.pokemones
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,14 +71,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         var actions: [UIContextualAction] = [UIContextualAction]()
         
-        let pokemon = displayPokemones[indexPath.row]
-        
-        let cast = ["Vivien", "Marlon", "Kim", "Karl"]
-        print(cast.contains("Marlon"))
-        
         // TO DO: Add actions
-//        let action = UIContextualAction(style: .normal, title: "Scan") { (action, view, completion) in
-//            loggedUser.pokemons.contains { pokemon }
+//        let action = UIContextualAction(style: .normal, title: "Scan") { (action, view, completion) in self.displayPokemones[indexPath.row].isCaptured = !self.displayPokemones[indexPath.row].isCaptured
 //            tableView.reloadRows(at: [indexPath], with: .none)
 //            completion(true)
 //        }
