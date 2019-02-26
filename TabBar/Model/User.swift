@@ -14,8 +14,8 @@ class User {
     var image: UIImage
     var pokeballs: Int
     
-    let pokemons: [Pokemon]
-    let pokedex: [Pokemon]
+    var pokemons: [Pokemon]
+    var pokedex: [Pokemon]
     
     init(name: String, image: UIImage) {
         self.name = name

@@ -11,6 +11,7 @@ import UIKit
 class SearchViewController: UIViewController {
     
     let CELL_HEIGHT: CGFloat = 120
+    let CAPTURED_SPRITE: UIImage = UIImage(named: "home_unselected")!
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -19,19 +20,42 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
         initTableView()
         initSearchBar()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
     
     func initTableView() {
-        tableView.reloadData()
         tableView.delegate = self
         tableView.dataSource = self
     }
     func initSearchBar() {
         searchBar.delegate = self
+    }
+    
+    func capturePokemon(pokemon: Pokemon, indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .normal, title: "Capture") { (action, view, completion) in
+            loggedUser.pokemons.append(pokemon)
+            self.tableView.reloadRows(at: [indexPath], with: .none)
+            completion(true)
+        }
+        action.title = "+"
+        action.backgroundColor = .cyan
+        
+        return action
+    }
+    func releasePokemon(pokemon: Pokemon, indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .normal, title: "Capture") { (action, view, completion) in
+            loggedUser.pokemons.removeAll { $0.name == pokemon.name }
+            self.tableView.reloadRows(at: [indexPath], with: .none)
+            completion(true)
+        }
+        action.title = "X"
+        action.backgroundColor = .gray
+        
+        return action
     }
 }
 
@@ -40,11 +64,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return displayPokemones.count
     }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CELL_HEIGHT
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Create our custom ViewController
         let vc = storyboard?.instantiateViewController(withIdentifier: "pokemonDetailsVC") as! PokemonDetailsViewController
@@ -55,7 +77,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         // Push custom ViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create our custom cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchListCell") as! SearchListCell
@@ -65,18 +86,22 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         cell.sprite.image = pokemon.sprite
         cell.name.text = pokemon.name
         
+        let isPokemonCaptured: Bool = loggedUser.pokemons.contains { $0.name == pokemon.name }
+        cell.isCaptured.image = isPokemonCaptured ? CAPTURED_SPRITE : nil
+        
         return cell
     }
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         var actions: [UIContextualAction] = [UIContextualAction]()
         
-        // TO DO: Add actions
-//        let action = UIContextualAction(style: .normal, title: "Scan") { (action, view, completion) in self.displayPokemones[indexPath.row].isCaptured = !self.displayPokemones[indexPath.row].isCaptured
-//            tableView.reloadRows(at: [indexPath], with: .none)
-//            completion(true)
-//        }
-//        actions.append(action)
+        let pokemon = displayPokemones[indexPath.row]
+        let isPokemonCaptured: Bool = loggedUser.pokemons.contains { $0.name == pokemon.name }
+        
+        if !isPokemonCaptured {
+            actions.append(capturePokemon(pokemon: pokemon, indexPath: indexPath))
+        } else {
+            actions.append(releasePokemon(pokemon: pokemon, indexPath: indexPath))
+        }
         
         return UISwipeActionsConfiguration(actions: actions)
     }
