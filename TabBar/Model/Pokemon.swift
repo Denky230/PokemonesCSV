@@ -16,8 +16,6 @@ class Pokemon {
     let subtype: PokemonType
     let description: String
     
-    var isLiked: Bool = false
-    
     init(sprite: UIImage, name: String, type: PokemonType, subtype: PokemonType, description: String) {
         self.sprite = sprite
         self.name = name

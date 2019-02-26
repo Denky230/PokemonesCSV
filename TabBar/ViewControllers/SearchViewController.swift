@@ -10,10 +10,12 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
+    let CELL_HEIGHT: CGFloat = 120
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    var displayPokemones: [Pokemon] = [Pokemon]()
+    var displayPokemones = PokeData.pokemones
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +23,6 @@ class SearchViewController: UIViewController {
         // Do any additional setup after loading the view.
         initTableView()
         initSearchBar()
-        displayPokemones = Pokedex.pokemones
     }
     
     func initTableView() {
@@ -41,7 +42,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return CELL_HEIGHT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -60,8 +61,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchListCell") as! SearchListCell
         
         // Set up cell elements
-        cell.sprite.image = displayPokemones[indexPath.row].sprite
-        cell.name.text = displayPokemones[indexPath.row].name
+        let pokemon = displayPokemones[indexPath.row]
+        cell.sprite.image = pokemon.sprite
+        cell.name.text = pokemon.name
         
         return cell
     }
@@ -69,14 +71,18 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         var actions: [UIContextualAction] = [UIContextualAction]()
         
+        let pokemon = displayPokemones[indexPath.row]
+        
+        let cast = ["Vivien", "Marlon", "Kim", "Karl"]
+        print(cast.contains("Marlon"))
+        
         // TO DO: Add actions
-        let action = UIContextualAction(style: .normal, title: "Like") { (action, view, completion) in self.displayPokemones[indexPath.row].isLiked = !self.displayPokemones[indexPath.row].isLiked
-            tableView.reloadRows(at: [indexPath], with: .none)
-            completion(true)
-        }
-        action.title = displayPokemones[indexPath.row].isLiked ? "Dislike" : "Like"
-        action.backgroundColor = displayPokemones[indexPath.row].isLiked ? .gray : .cyan
-        actions.append(action)
+//        let action = UIContextualAction(style: .normal, title: "Scan") { (action, view, completion) in
+//            loggedUser.pokemons.contains { pokemon }
+//            tableView.reloadRows(at: [indexPath], with: .none)
+//            completion(true)
+//        }
+//        actions.append(action)
         
         return UISwipeActionsConfiguration(actions: actions)
     }
@@ -88,7 +94,7 @@ extension SearchViewController: UISearchBarDelegate {
         
         // Display Pokemons based on search
         displayPokemones = searchText == "" ?
-            Pokedex.pokemones : Pokedex.pokemones.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            PokeData.pokemones : PokeData.pokemones.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         
         tableView.reloadData()
     }

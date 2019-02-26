@@ -16,6 +16,7 @@ class PokemonDetailsViewController: UIViewController {
     @IBOutlet weak var pokemonName: UILabel!
     @IBOutlet weak var pokemonType: UILabel!
     @IBOutlet weak var pokemonSubType: UILabel!
+    @IBOutlet weak var pokemonDescription: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,5 +30,6 @@ class PokemonDetailsViewController: UIViewController {
         pokemonName.text = pokemon.name
         pokemonType.text = pokemon.type.rawValue
         pokemonSubType.text = pokemon.subtype.rawValue
+        pokemonDescription.text = pokemon.description
     }
 }

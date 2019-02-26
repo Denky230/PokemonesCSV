@@ -6,7 +6,7 @@
 //  Copyright © 2019 Oscar Rossello. All rights reserved.
 //
 
-class Pokedex {
+class PokeData {
     
     static let pokemones: [Pokemon] = [
             Pokemon(name: "Squirtle", type: .WATER),

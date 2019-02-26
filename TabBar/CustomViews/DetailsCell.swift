@@ -14,7 +14,6 @@ class DetailsCell: UITableViewCell {
     @IBOutlet weak var lbl_name: UILabel!
     @IBOutlet weak var lbl_type: UILabel!
     @IBOutlet weak var lbl_subtype: UILabel!
-    @IBOutlet weak var isLiked: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
