@@ -10,7 +10,7 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
-    let spriteNames: [String] = [
+    let tabs: [String] = [
         "profile", "home", "search"
     ]
     
@@ -27,10 +27,10 @@ class TabBarController: UITabBarController {
             
             // Set Unselected image
             tabBarItem.image =
-                UIImage(named: spriteNames[i] + "_unselected")?.withRenderingMode(.alwaysOriginal)
+                UIImage(named: tabs[i] + "_unselected")?.withRenderingMode(.alwaysOriginal)
             // Set Selected image
             tabBarItem.selectedImage =
-                UIImage(named: spriteNames[i] + "_selected")?.withRenderingMode(.alwaysOriginal)
+                UIImage(named: tabs[i] + "_selected")?.withRenderingMode(.alwaysOriginal)
             
             // Set insets
             let tabBarHeight: CGFloat = tabBar.frame.height
