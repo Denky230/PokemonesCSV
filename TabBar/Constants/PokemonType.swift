@@ -6,6 +6,8 @@
 //  Copyright © 2019 Oscar Rossello. All rights reserved.
 //
 
+import UIKit
+
 enum PokemonType: String, CaseIterable {
     
     case FIRE = "Fire"
@@ -26,5 +28,10 @@ enum PokemonType: String, CaseIterable {
     
     static func getEnumFromString(name: String) -> PokemonType {
         return self.allCases.first{ "\($0)" == name }!
+    }
+    
+    static func getSpriteFromEnum(value: PokemonType) -> UIImage {
+        let spriteName: String = value.rawValue
+        return UIImage(named: spriteName)!
     }
 }

@@ -9,9 +9,9 @@
 class PokeData {
     
     static let pokemones: [Pokemon] = [
-            Pokemon(name: "Squirtle", type: .WATER),
-            Pokemon(name: "Charmander", type: .FIRE),
-            Pokemon(name: "Bulbasaur", type: .GRASS, subtype: .POISON),
-            Pokemon(name: "Salamence", type: .DRAGON, subtype: .FLYING)
+//            Pokemon(name: "Squirtle", type: .WATER),
+//            Pokemon(name: "Charmander", type: .FIRE),
+//            Pokemon(name: "Bulbasaur", type: .GRASS, subtype: .POISON),
+//            Pokemon(name: "Salamence", type: .DRAGON, subtype: .FLYING)
     ]
 }

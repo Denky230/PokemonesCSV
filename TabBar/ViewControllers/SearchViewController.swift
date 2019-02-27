@@ -13,15 +13,21 @@ class SearchViewController: UIViewController {
     let CELL_HEIGHT: CGFloat = 120
     let CAPTURED_SPRITE: UIImage = UIImage(named: "home_unselected")!
     
-    var displayPokemones: [Pokemon] = PokeData.pokemones
-    
+    var filterButtons: [UIButton] = [UIButton]()
+    @IBOutlet weak var btnFilter: UIButton!
+    @IBAction func dropFilterMenu(_ sender: UIButton) {
+        filterButtons.forEach { $0.isHidden = !$0.isHidden }
+    }
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    var displayPokemones: [Pokemon] = PokeData.pokemones
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initTableView()
         initSearchBar()
+        initFilterButtons()
     }
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
@@ -33,6 +39,32 @@ class SearchViewController: UIViewController {
     }
     func initSearchBar() {
         searchBar.delegate = self
+    }
+    func initFilterButtons() {
+        let frame: CGRect = btnFilter.frame
+        for (index, element) in PokemonType.allCases.enumerated() {
+            // Create custom UIButton for each Pokemon type
+            let w: CGFloat = 150
+            let h: CGFloat = 50
+            let button: UIButton = UIButton(frame: CGRect(
+                x: frame.maxX - w,
+                // Set each button <frame.height> lower
+                y: frame.maxY + (h * CGFloat(index)),
+                width: w,
+                height: h
+            ))
+            // Set type as button title
+            button.setTitle(element.rawValue, for: .normal)
+            button.setTitleColor(.black, for: .normal)
+            button.backgroundColor = .white
+            button.layer.borderColor = UIColor.black.cgColor
+            button.layer.borderWidth = 1
+            button.isHidden = true
+            
+            // Add button to filter buttons + parent view
+            filterButtons.append(button)
+            view.addSubview(button)
+        }
     }
     
     func capturePokemon(pokemon: Pokemon, indexPath: IndexPath) -> UIContextualAction {
@@ -95,7 +127,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         let pokemon = displayPokemones[indexPath.row]
         let isPokemonCaptured: Bool = loggedUser.pokemons.contains { $0.name == pokemon.name }
-        
         if !isPokemonCaptured {
             actions.append(capturePokemon(pokemon: pokemon, indexPath: indexPath))
         } else {
@@ -109,7 +140,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
         // Display Pokemons based on search
         displayPokemones = searchText == "" ?
             PokeData.pokemones : PokeData.pokemones.filter { $0.name.lowercased().contains(searchText.lowercased()) }
