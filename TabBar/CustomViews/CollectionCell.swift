@@ -9,6 +9,6 @@
 import UIKit
 
 class CollectionCell: UICollectionViewCell {
-        
+    
     @IBOutlet weak var sprite: UIImageView!
 }

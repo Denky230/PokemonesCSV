@@ -13,10 +13,10 @@ class SearchViewController: UIViewController {
     let CELL_HEIGHT: CGFloat = 120
     let CAPTURED_SPRITE: UIImage = UIImage(named: "home_unselected")!
     
+    var displayPokemones: [Pokemon] = PokeData.pokemones
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-    
-    var displayPokemones: [Pokemon] = PokeData.pokemones
     
     override func viewDidLoad() {
         super.viewDidLoad()
