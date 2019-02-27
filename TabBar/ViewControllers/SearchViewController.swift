@@ -83,9 +83,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         // Set up cell elements
         let pokemon = displayPokemones[indexPath.row]
-        cell.sprite.image = pokemon.sprite
         cell.name.text = pokemon.name
-        
+        cell.sprite.image = pokemon.sprite
         let isPokemonCaptured: Bool = loggedUser.pokemons.contains { $0.name == pokemon.name }
         cell.isCaptured.image = isPokemonCaptured ? CAPTURED_SPRITE : nil
         

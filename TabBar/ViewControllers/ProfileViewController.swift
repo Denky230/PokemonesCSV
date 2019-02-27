@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var imgUserimage: UIImageView!
     @IBOutlet weak var lblUsername: UILabel!
+    @IBOutlet weak var imgPikachu: UIImageView!
+    @IBOutlet weak var lblPokemons: UILabel!
     @IBOutlet weak var lblPokeballs: UILabel!
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -22,12 +24,18 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initCollectionView()
+        
+        // Tint pikachu icon black
+        imgPikachu.image = imgPikachu.image?.withRenderingMode(.alwaysTemplate)
+        imgPikachu.tintColor = .black
     }
     override func viewWillAppear(_ animated: Bool) {
         // Make sure User data is up-to-date
-        imgUserimage.image = loggedUser.image
+        imgUserimage.image = loggedUser.image == nil ?
+            UIImage(named: "profile_unselected") : loggedUser.image
         lblUsername.text = loggedUser.name
-        lblPokeballs.text = "Pokeballs: \(loggedUser.pokeballs)"
+        lblPokemons.text = "\(loggedUser.pokemons.count)"
+        lblPokeballs.text = "\(loggedUser.pokeballs)"
         
         collectionView.reloadData()
     }
@@ -54,7 +62,6 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         // Set cell elements
         cell.sprite.image = loggedUser.pokemons[indexPath.item].sprite
-        cell.backgroundColor = .black
         
         return cell
     }

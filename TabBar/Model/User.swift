@@ -11,20 +11,20 @@ import UIKit
 class User {
     
     var name: String
-    var image: UIImage
+    var image: UIImage!
     var pokeballs: Int
     
     var pokemons: [Pokemon]
     var pokedex: [Pokemon]
     
-    init(name: String, image: UIImage) {
+    init(name: String) {
         self.name = name
-        self.image = image
         self.pokeballs = 0
         self.pokemons = [Pokemon]()
         self.pokedex = [Pokemon]()
     }
-    convenience init(name: String) {
-        self.init(name: name, image: UIImage())
+    convenience init(name: String, image: UIImage) {
+        self.init(name: name)
+        self.image = image
     }
 }
