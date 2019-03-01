@@ -24,6 +24,7 @@ enum PokemonType: String, CaseIterable {
     case FIGHTING = "Fighting"
     case PSYCHIC = "Psychic"
     case DRAGON = "Dragon"
+    case GHOST = "Ghost"
     case EMPTY = ""
     
     static func getEnumFromString(name: String) -> PokemonType {

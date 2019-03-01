@@ -17,14 +17,14 @@ class User {
     var pokemons: [Pokemon]
     var pokedex: [Pokemon]
     
-    init(name: String) {
+    init(named name: String) {
         self.name = name
         self.pokeballs = 0
         self.pokemons = [Pokemon]()
         self.pokedex = [Pokemon]()
     }
-    convenience init(name: String, image: UIImage) {
-        self.init(name: name)
+    convenience init(named name: String, image: UIImage) {
+        self.init(named: name)
         self.image = image
     }
 }

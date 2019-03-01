@@ -20,7 +20,7 @@ class SearchViewController: UIViewController {
     }
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var displayPokemones: [Pokemon] = PokeData.pokemones
+    var displayPokemones: [Pokemon] = [Pokemon]()
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -28,6 +28,7 @@ class SearchViewController: UIViewController {
         initTableView()
         initSearchBar()
         initFilterButtons()
+        displayPokemones = pokemones
     }
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
@@ -41,6 +42,7 @@ class SearchViewController: UIViewController {
         searchBar.delegate = self
     }
     func initFilterButtons() {
+        // Get filter button's frame to use as reference
         let frame: CGRect = btnFilter.frame
         for (index, element) in PokemonType.allCases.enumerated() {
             // Create custom UIButton for each Pokemon type
@@ -48,12 +50,12 @@ class SearchViewController: UIViewController {
             let h: CGFloat = 50
             let button: UIButton = UIButton(frame: CGRect(
                 x: frame.maxX - w,
-                // Set each button <frame.height> lower
-                y: frame.maxY + (h * CGFloat(index)),
+                y: frame.maxY + (h * CGFloat(index)), // Set each button <frame.height> lower
                 width: w,
                 height: h
             ))
-            // Set type as button title
+            // Add style to button
+            // Set button title to type name
             button.setTitle(element.rawValue, for: .normal)
             button.setTitleColor(.black, for: .normal)
             button.backgroundColor = .white
@@ -142,7 +144,7 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // Display Pokemons based on search
         displayPokemones = searchText == "" ?
-            PokeData.pokemones : PokeData.pokemones.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            pokemones : pokemones.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         
         tableView.reloadData()
     }

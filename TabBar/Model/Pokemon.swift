@@ -10,7 +10,7 @@ import UIKit
 
 class Pokemon {
     
-    let sprite: UIImage
+    var sprite: UIImage
     let name: String
     let type: PokemonType
     let subtype: PokemonType
@@ -28,10 +28,10 @@ class Pokemon {
     }
     
     // TEST - Remove when ready to read from CSV
-    convenience init(name: String, type: PokemonType, subtype: PokemonType) {
-        self.init(sprite: UIImage(named: "pokemon")!, name: name, type: type, subtype: subtype, description: "")
-    }
-    convenience init(name: String, type: PokemonType) {
-        self.init(name: name, type: type, subtype: .EMPTY)
-    }
+//    convenience init(name: String, type: PokemonType, subtype: PokemonType) {
+//        self.init(sprite: UIImage(named: "pokemon")!, name: name, type: type, subtype: subtype, description: "")
+//    }
+//    convenience init(name: String, type: PokemonType) {
+//        self.init(name: name, type: type, subtype: .EMPTY)
+//    }
 }
