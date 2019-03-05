@@ -13,11 +13,11 @@ class ProfileViewController: UIViewController {
     let ITEMS_PER_ROW: CGFloat = 3
     let ITEM_MARGIN: CGFloat = 5.0
     
-    @IBOutlet weak var imgUserimage: UIImageView!
-    @IBOutlet weak var lblUsername: UILabel!
-    @IBOutlet weak var imgPikachu: UIImageView!
-    @IBOutlet weak var lblPokemons: UILabel!
-    @IBOutlet weak var lblPokeballs: UILabel!
+    @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var pokemon: UIImageView!
+    @IBOutlet weak var pokemonCounter: UILabel!
+    @IBOutlet weak var pokeballCounter: UILabel!
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -25,22 +25,26 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         initCollectionView()
         
-        // Tint pikachu icon black
-        imgPikachu.image = imgPikachu.image?.withRenderingMode(.alwaysTemplate)
-        imgPikachu.tintColor = .black
+        // Read Pokemon from CSV
+        Tools().loadPokemons()
+        
+        // Tint Pikachu icon black
+        pokemon.image = pokemon.image?.withRenderingMode(.alwaysTemplate)
+        pokemon.tintColor = .black
     }
     override func viewWillAppear(_ animated: Bool) {
         // Make sure User data is up-to-date
-        imgUserimage.image = loggedUser.image == nil ?
+        image.image = loggedUser.image == nil ?
             UIImage(named: "profile_unselected") : loggedUser.image
-        lblUsername.text = loggedUser.name
-        lblPokemons.text = "\(loggedUser.pokemons.count)"
-        lblPokeballs.text = "\(loggedUser.pokeballs)"
+        name.text = loggedUser.name
+        pokemonCounter.text = "\(loggedUser.pokemons.count)"
+        pokeballCounter.text = "\(loggedUser.pokeballs)"
         
         collectionView.reloadData()
     }
     
     func initCollectionView() {
+        // Black magic to make the CollectionView look good
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         let size = (collectionView.frame.width / ITEMS_PER_ROW) - ITEM_MARGIN
         layout.itemSize = CGSize(width: size, height: size)
@@ -58,6 +62,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         return loggedUser.pokemons.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Create custom cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CollectionCell
         
         // Set cell elements
@@ -65,14 +70,15 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         return cell
     }
+    // OnClick --> Check selected Pokemon's details
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Create our custom ViewController
+        // Instantiate a PokemonDetailsViewController
         let vc = storyboard?.instantiateViewController(withIdentifier: "pokemonDetailsVC") as! PokemonDetailsViewController
         
-        // Initialize ViewController with selected Pokemon
+        // Assign selected Pokemon
         vc.pokemon = loggedUser.pokemons[indexPath.item]
         
-        // Push custom ViewController
+        // Go to PokemonDetailsViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

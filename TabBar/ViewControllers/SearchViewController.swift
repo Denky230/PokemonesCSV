@@ -16,11 +16,14 @@ class SearchViewController: UIViewController {
     var filterButtons: [UIButton] = [UIButton]()
     @IBOutlet weak var btnFilter: UIButton!
     @IBAction func dropFilterMenu(_ sender: UIButton) {
+        // Show / Hide category buttons drop-down menu
         filterButtons.forEach { $0.isHidden = !$0.isHidden }
     }
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var displayPokemones: [Pokemon] = [Pokemon]()
+    // [0] = Unknown Pokemons
+    // [1] = Known Pokemons
+    var displayPokemones: [[Pokemon]] = [ [Pokemon](), [Pokemon]() ]
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -28,9 +31,10 @@ class SearchViewController: UIViewController {
         initTableView()
         initSearchBar()
         initFilterButtons()
-        displayPokemones = pokemones
     }
     override func viewWillAppear(_ animated: Bool) {
+        displayPokemones[1] = loggedUser.pokedex
+        displayPokemones[0] = unknownPokemons
         tableView.reloadData()
     }
     
@@ -63,76 +67,94 @@ class SearchViewController: UIViewController {
             button.layer.borderWidth = 1
             button.isHidden = true
             
-            // Add button to filter buttons + parent view
+            // Add button to filter buttons collection + parent view
             filterButtons.append(button)
             view.addSubview(button)
         }
     }
     
-    func capturePokemon(pokemon: Pokemon, indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .normal, title: "Capture") { (action, view, completion) in
-            loggedUser.pokemons.append(pokemon)
-            self.tableView.reloadRows(at: [indexPath], with: .none)
+    func scanPokemon(pokemon: Pokemon, indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .normal, title: "Scan") { (action, view, completion) in
+            // Remove Pokemon from unknown Pokemons
+            unknownPokemons.removeAll { $0 == pokemon }
+            // Add Pokemon to User pokedex
+            loggedUser.pokedex.append(pokemon)
+            // Go to Pokemon details screen
+            self.checkPokemonDetails(pokemon: pokemon)
             completion(true)
         }
-        action.title = "+"
-        action.backgroundColor = .cyan
+        action.image = UIImage(named: "question-mark_64x64")
+        action.backgroundColor = .gray
+        action.title = ""
         
         return action
     }
-    func releasePokemon(pokemon: Pokemon, indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .normal, title: "Capture") { (action, view, completion) in
-            loggedUser.pokemons.removeAll { $0.name == pokemon.name }
-            self.tableView.reloadRows(at: [indexPath], with: .none)
-            completion(true)
-        }
-        action.title = "X"
-        action.backgroundColor = .gray
+    func checkPokemonDetails(pokemon: Pokemon) {
+        // Instantiate a PokemonDetailsViewController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "pokemonDetailsVC") as! PokemonDetailsViewController
         
-        return action
+        // Assign selected Pokemon
+        vc.pokemon = pokemon
+        
+        // Go to PokemonDetailsViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return displayPokemones.count
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+            case 0:
+                return "Unknown"
+            case 1:
+                return "Known"
+            default:
+                return ""
+        }
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return displayPokemones[section].count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CELL_HEIGHT
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Create our custom ViewController
-        let vc = storyboard?.instantiateViewController(withIdentifier: "pokemonDetailsVC") as! PokemonDetailsViewController
-        
-        // Initialize ViewController with selected Pokemon
-        vc.pokemon = displayPokemones[indexPath.row]
-        
-        // Push custom ViewController
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Create our custom cell
+        // Create custom cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchListCell") as! SearchListCell
+        let pokemon = displayPokemones[indexPath.section][indexPath.row]
         
         // Set up cell elements
-        let pokemon = displayPokemones[indexPath.row]
-        cell.name.text = pokemon.name
         cell.sprite.image = pokemon.sprite
-        let isPokemonCaptured: Bool = loggedUser.pokemons.contains { $0.name == pokemon.name }
-        cell.isCaptured.image = isPokemonCaptured ? CAPTURED_SPRITE : nil
+        // Check if Pokemon is known
+        if loggedUser.pokedex.contains(where: { $0 == pokemon }) {
+            cell.name.text = pokemon.name
+            let isPokemonCaptured: Bool = loggedUser.pokemons.contains { $0 == pokemon }
+            cell.captured.image = isPokemonCaptured ? CAPTURED_SPRITE : nil
+        } else {
+            cell.name.text = ""
+            // Tint Pokemon sprite black
+            cell.sprite.image = cell.sprite.image?.withRenderingMode(.alwaysTemplate)
+            cell.sprite.tintColor = .black
+        }
         
         return cell
     }
+    // OnClick --> Check selected Pokemon's details
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        checkPokemonDetails(pokemon: displayPokemones[indexPath.section][indexPath.row])
+    }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         var actions: [UIContextualAction] = [UIContextualAction]()
+        let pokemon = displayPokemones[indexPath.section][indexPath.row]
         
-        let pokemon = displayPokemones[indexPath.row]
-        let isPokemonCaptured: Bool = loggedUser.pokemons.contains { $0.name == pokemon.name }
-        if !isPokemonCaptured {
-            actions.append(capturePokemon(pokemon: pokemon, indexPath: indexPath))
-        } else {
-            actions.append(releasePokemon(pokemon: pokemon, indexPath: indexPath))
+        // Scan
+        // Check if Pokemon is unknown (no use in scanning a scanned Pokemon)
+        if !loggedUser.pokedex.contains(where: { $0 == pokemon }) {
+            actions.append(scanPokemon(pokemon: pokemon, indexPath: indexPath))
         }
         
         return UISwipeActionsConfiguration(actions: actions)
@@ -143,7 +165,7 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // Display Pokemons based on search
-        displayPokemones = searchText == "" ?
+        displayPokemones[1] = searchText == "" ?
             pokemones : pokemones.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         
         tableView.reloadData()

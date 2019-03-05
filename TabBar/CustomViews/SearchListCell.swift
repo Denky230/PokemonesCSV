@@ -12,7 +12,7 @@ class SearchListCell: UITableViewCell {
  
     @IBOutlet weak var sprite: UIImageView!
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var isCaptured: UIImageView!
+    @IBOutlet weak var captured: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

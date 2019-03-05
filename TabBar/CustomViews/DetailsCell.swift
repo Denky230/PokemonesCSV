@@ -10,10 +10,20 @@ import UIKit
 
 class DetailsCell: UITableViewCell {
     
-    @IBOutlet weak var imgView: UIImageView!
-    @IBOutlet weak var lbl_name: UILabel!
-    @IBOutlet weak var lbl_type: UILabel!
-    @IBOutlet weak var lbl_subtype: UILabel!
+    @IBOutlet weak var sprite: UIImageView!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var type: UILabel!
+    @IBOutlet weak var subtype: UILabel!
+    @IBOutlet weak var questionMark: UIImageView!
+    
+    @IBOutlet weak var btnCapture: UIButton!
+    @IBAction func capture(_ sender: UIButton) {
+        // Add Pokemon to User collection
+        let selectedPokemon = pokemones.filter { $0.id == sender.tag }.first!
+        loggedUser.pokemons.append(selectedPokemon)
+        // Remove Pokemon from Home list
+        homePokemons.removeAll { $0 == selectedPokemon }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -15,7 +15,7 @@ class CSVReader {
     var columns = Dictionary<String, [String]>()
     var delimiter = CharacterSet(charactersIn: ",")
     
-    public init(content: String?, delimiter: CharacterSet, encoding: UInt) throws{
+    init(content: String?, delimiter: CharacterSet, encoding: UInt) throws{
         if let csvStringToParse = content {
             self.delimiter = delimiter
             
@@ -24,12 +24,11 @@ class CSVReader {
             csvStringToParse.trimmingCharacters(in: newline).enumerateLines { line, stop in lines.append(line) }
             
             self.headers = self.parseHeaders(fromLines: lines)
-            self.rows = self.parseRows(fromLines: lines)
             self.columns = self.parseColumns(fromLines: lines)
+            self.rows = self.parseRows(fromLines: lines)
         }
-    }
-    
-    public convenience init(contentsOfURL url: String) throws {
+    }    
+    convenience init(contentsOfURL url: String) throws {
         let comma = CharacterSet(charactersIn: ",")
         let csvString: String?
         do {
@@ -40,11 +39,9 @@ class CSVReader {
         try self.init(content: csvString, delimiter:comma, encoding:String.Encoding.utf8.rawValue)
     }
     
-    
     func parseHeaders(fromLines lines: [String]) -> [String] {
         return lines[0].components(separatedBy: self.delimiter)
     }
-    
     func parseRows(fromLines lines: [String]) -> [Dictionary<String, String>] {
         var rows: [Dictionary<String, String>] = []
         
@@ -67,7 +64,6 @@ class CSVReader {
         
         return rows
     }
-    
     func parseColumns(fromLines lines: [String]) -> Dictionary<String, [String]> {
         var columns = Dictionary<String, [String]>()
         

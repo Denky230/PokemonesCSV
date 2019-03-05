@@ -16,12 +16,11 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
         initTabBarItems()
     }
     
     func initTabBarItems() {
+        // Set up tabs
         for i in 0 ..< tabBar.items!.count {
             tabBarItem = tabBar.items![i]
             
@@ -34,13 +33,15 @@ class TabBarController: UITabBarController {
             
             // Set insets
             let tabBarHeight: CGFloat = tabBar.frame.height
-            let YInset: CGFloat = (tabBarHeight / 2)
+            let yInset: CGFloat = (tabBarHeight / 2)
             tabBarItem.imageInsets = UIEdgeInsets(
-                top: YInset,
+                top: yInset,
                 left: 0,
-                bottom: -YInset,
+                bottom: -yInset,
                 right: 0
             )
         }
+        // Set Home as the default tab
+        selectedIndex = 0   // Currently Profile
     }
 }

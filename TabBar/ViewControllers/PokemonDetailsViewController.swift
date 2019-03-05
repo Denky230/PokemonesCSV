@@ -12,11 +12,12 @@ class PokemonDetailsViewController: UIViewController {
     
     var pokemon: Pokemon!
     
-    @IBOutlet weak var pokemonImage: UIImageView!
-    @IBOutlet weak var pokemonName: UILabel!
-    @IBOutlet weak var pokemonType: UILabel!
-    @IBOutlet weak var pokemonSubType: UILabel!
-    @IBOutlet weak var pokemonDescription: UILabel!
+    @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var type: UILabel!
+    @IBOutlet weak var subtype: UILabel!
+    @IBOutlet weak var descr: UILabel!
+    @IBOutlet weak var questionMark: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +25,20 @@ class PokemonDetailsViewController: UIViewController {
     }
     
     func setUpViews() {
-        pokemonImage.image = pokemon.sprite
-        pokemonName.text = pokemon.name
-        pokemonType.text = pokemon.type.rawValue
-        pokemonSubType.text = pokemon.subtype.rawValue
-        pokemonDescription.text = pokemon.description
+        image.image = pokemon.sprite
+        // Check if Pokemon is known
+        if loggedUser.pokedex.contains(where: { $0 == pokemon }) {
+            name.text = pokemon.name
+            type.text = pokemon.type.rawValue
+            subtype.text = pokemon.subtype.rawValue
+            descr.text = pokemon.description
+            descr.sizeToFit()
+            questionMark.isHidden = true
+        } else {
+            // Tint Pokemon image black
+            image.image = image.image?.withRenderingMode(.alwaysTemplate)
+            image.tintColor = .black
+            questionMark.isHidden = false
+        }
     }
 }

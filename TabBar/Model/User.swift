@@ -13,7 +13,6 @@ class User {
     var name: String
     var image: UIImage!
     var pokeballs: Int
-    
     var pokemons: [Pokemon]
     var pokedex: [Pokemon]
     

@@ -27,12 +27,7 @@ enum PokemonType: String, CaseIterable {
     case GHOST = "Ghost"
     case EMPTY = ""
     
-    static func getEnumFromString(name: String) -> PokemonType {
-        return self.allCases.first{ "\($0)" == name }!
-    }
-    
-    static func getSpriteFromEnum(value: PokemonType) -> UIImage {
-        let spriteName: String = value.rawValue
-        return UIImage(named: spriteName)!
+    static func getSpriteFromEnum(const: PokemonType) -> UIImage {
+        return UIImage(named: const.rawValue)!
     }
 }
