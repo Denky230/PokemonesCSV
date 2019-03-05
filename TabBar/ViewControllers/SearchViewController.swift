@@ -13,12 +13,15 @@ class SearchViewController: UIViewController {
     let CELL_HEIGHT: CGFloat = 120
     let CAPTURED_SPRITE: UIImage = UIImage(named: "home_unselected")!
     
+    // Filter drop-down menu
     var filterButtons: [UIButton] = [UIButton]()
     @IBOutlet weak var btnFilter: UIButton!
     @IBAction func dropFilterMenu(_ sender: UIButton) {
         // Show / Hide category buttons drop-down menu
         filterButtons.forEach { $0.isHidden = !$0.isHidden }
     }
+    
+    // Search bar
     @IBOutlet weak var searchBar: UISearchBar!
     
     // [0] = Unknown Pokemons
@@ -67,10 +70,17 @@ class SearchViewController: UIViewController {
             button.layer.borderWidth = 1
             button.isHidden = true
             
+            // Add onClick() event to button
+            button.addTarget(self, action: #selector(addPokemonTypeFilter), for: .touchUpInside)
+            
             // Add button to filter buttons collection + parent view
             filterButtons.append(button)
             view.addSubview(button)
         }
+    }
+    
+    @objc func addPokemonTypeFilter(_ sender: UIButton) {
+        
     }
     
     func scanPokemon(pokemon: Pokemon, indexPath: IndexPath) -> UIContextualAction {
@@ -164,7 +174,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // Display Pokemons based on search
+        
+        // Filter Pokemons based on search
         displayPokemones[1] = searchText == "" ?
             pokemones : pokemones.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         
