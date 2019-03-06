@@ -21,28 +21,18 @@ class Tools {
             // Create new Pokemon for each row in CSV
             for row in csv.rows {
                 // Get UIImage from CSV URL
-//                let url = URL(string: row["PNG"]!)
-//                let data = try Data(contentsOf: url!)
-//                let image: UIImage = UIImage(data: data)!
+                let url = URL(string: row["PNG"]!)
+                let data = try Data(contentsOf: url!)
+                let image: UIImage = UIImage(data: data)!
                 
                 let pokemon = Pokemon(
                     id: Int(row["Number"]!)!,
-                    sprite: UIImage(named: "pikachu")!,
+                    sprite: image,
                     name: row["Pokemon"]!,
                     type: PokemonType(rawValue: row["Type 1"]!)!,
                     subtype: PokemonType(rawValue: row["Type 2"]!)!,
                     description: row["Description"]!
                 )
-                
-                // Get UIImage from CSV URL
-//                getImageFromURL(imageURL: row["PNG"]!) { (imgRecovered) -> Void in
-//                    if let image = imgRecovered {
-//                        DispatchQueue.main.async {
-//                            pokemon.sprite = image
-//                            return
-//                        }
-//                    }
-//                }
                 
                 pokemones.append(pokemon)
             }
@@ -50,35 +40,5 @@ class Tools {
         } catch let error as NSError {
             print("Error decodificando el CSV", error)
         }
-    }
-    func getImageFromURL(imageURL: String, completion: @escaping (_ image: UIImage?) -> ()) {
-        let imgURL = URL(string: imageURL)!
-        
-        // Creates a default configuration object which uses
-        // the disk-persisted global cache, credential and cookie storage objects.
-        // Creamos la sesion
-        let session = URLSession(configuration: .default)
-        
-        // Obtengo la URL definiendola del tipo data, el cod de respuesta y el error
-        session.dataTask(with: imgURL) { (data, response, error) in
-            // Una vez descargada la imagen puedo tratarla
-            // Comprobamos que no se haya producido ningun error
-            if let e = error {
-                print("Error downloading image: \(e)")
-            } else {
-                // Tratamos la respuesta de la URL
-                // Comprobamos el tipo de respuesta obtenida
-                if let _ = response as? HTTPURLResponse {
-                    // Tratamos el data obtenido de la URL
-                    if let imageData = data {
-                        // Convertimos la imagen del tipo data a una UIImage para poder enviarla en el completion
-                        completion(UIImage(data: imageData)!)
-                    } else {
-                        print("Couldn't get image: Image is nil") // No se ha podido obtener el recurso
-                    }
-                } else {
-                    print("Couldn't get response code for some reason") // El servidor no esta accesible
-                }
-            }}.resume()
     }
 }

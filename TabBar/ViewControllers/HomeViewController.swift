@@ -27,7 +27,6 @@ class HomeViewController: UIViewController {
     func initTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorColor = .white
     }
     
     func pullRandomPokemons() {

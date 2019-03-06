@@ -42,6 +42,6 @@ class TabBarController: UITabBarController {
             )
         }
         // Set Home as the default tab
-        selectedIndex = 0   // Currently Profile
+        selectedIndex = 1
     }
 }
