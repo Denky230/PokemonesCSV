@@ -11,9 +11,11 @@ import UIKit
 class SearchViewController: UIViewController {
     
     let CELL_HEIGHT: CGFloat = 120
-    let CAPTURED_SPRITE: UIImage = UIImage(named: "home_unselected")!
     
+    // Search bar
+    @IBOutlet weak var searchBar: UISearchBar!
     // Filter drop-down menu
+    var typesToFilter: [PokemonType] = [PokemonType]()
     var filterButtons: [UIButton] = [UIButton]()
     @IBOutlet weak var btnFilter: UIButton!
     @IBAction func dropFilterMenu(_ sender: UIButton) {
@@ -21,12 +23,10 @@ class SearchViewController: UIViewController {
         filterButtons.forEach { $0.isHidden = !$0.isHidden }
     }
     
-    // Search bar
-    @IBOutlet weak var searchBar: UISearchBar!
-    
-    // [0] = Unknown Pokemons
-    // [1] = Known Pokemons
+    // Display Pokemons states
+    let unknown = 0, known = 1
     var displayPokemones: [[Pokemon]] = [ [Pokemon](), [Pokemon]() ]
+    var totalPokemones: [Pokemon] = [Pokemon]()
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -36,9 +36,10 @@ class SearchViewController: UIViewController {
         initFilterButtons()
     }
     override func viewWillAppear(_ animated: Bool) {
-        displayPokemones[1] = loggedUser.pokedex
-        displayPokemones[0] = unknownPokemons
-        tableView.reloadData()
+        totalPokemones = pokemones
+        displayPokemones[unknown] = unknownPokemons
+        displayPokemones[known] = totalPokemones
+        filterPokemons()
     }
     
     func initTableView() {
@@ -68,10 +69,11 @@ class SearchViewController: UIViewController {
             button.backgroundColor = .white
             button.layer.borderColor = UIColor.black.cgColor
             button.layer.borderWidth = 1
+            button.tag = 0
             button.isHidden = true
             
             // Add onClick() event to button
-            button.addTarget(self, action: #selector(addPokemonTypeFilter), for: .touchUpInside)
+            button.addTarget(self, action: #selector(filterPokemonType), for: .touchUpInside)
             
             // Add button to filter buttons collection + parent view
             filterButtons.append(button)
@@ -79,8 +81,56 @@ class SearchViewController: UIViewController {
         }
     }
     
-    @objc func addPokemonTypeFilter(_ sender: UIButton) {
+    @objc func filterPokemonType(_ sender: UIButton) {
+        if sender.tag == 0 {
+            // Add type to filter
+            typesToFilter.append(PokemonType(rawValue: sender.currentTitle!)!)
+            sender.backgroundColor = .gray
+            sender.tag = 1
+        } else {
+            // Remove type from filter
+            typesToFilter.removeAll { $0.rawValue == sender.currentTitle }
+            sender.backgroundColor = .white
+            sender.tag = 0
+        }
         
+        filterPokemons()
+    }
+    func filterPokemons() {
+        // Reset displayPokemones to recuperate previous filtered out ones
+        displayPokemones[known] = totalPokemones
+        
+        // Filter Pokemons based on active filters
+        displayPokemones[known] = typesToFilter.isEmpty ?
+            displayPokemones[known] :
+            displayPokemones[known]
+                // Filter Pokemons with type or subtype active as filter
+                .filter { p in typesToFilter.contains{ $0 == p.type || $0 == p.subtype }  }
+                // Sort Pokemons by type + subtype selected >> type following filter order >> id
+                .sorted(by: { p1, p2 in
+                    let p1type = PokemonType.allCases.firstIndex(of: p1.type)!
+                    let p2type = PokemonType.allCases.firstIndex(of: p2.type)!
+                    let p1matchingTypes = typesToFilter.filter { $0 == p1.type || $0 == p1.subtype }.count
+                    let p2matchingTypes = typesToFilter.filter { $0 == p2.type || $0 == p2.subtype }.count
+                    
+                    if p1matchingTypes == p2matchingTypes {
+                        if p1type == p2type {
+                            return p1.id < p2.id
+                        } else {
+                            return p1type < p2type
+                        }
+                    } else {
+                        return p1matchingTypes > p2matchingTypes
+                    }
+                })
+        
+        // Filter Pokemons based on search
+        let searchText = searchBar.text!
+        displayPokemones[known] = searchText == "" ?
+            displayPokemones[known] :
+            displayPokemones[known].filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        
+        tableView.reloadData()
     }
     
     func scanPokemon(pokemon: Pokemon, indexPath: IndexPath) -> UIContextualAction {
@@ -143,9 +193,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         if loggedUser.pokedex.contains(where: { $0 == pokemon }) {
             cell.name.text = pokemon.name
             let isPokemonCaptured: Bool = loggedUser.pokemons.contains { $0 == pokemon }
-            cell.captured.image = isPokemonCaptured ? CAPTURED_SPRITE : nil
+            cell.captured.isHidden = !isPokemonCaptured
         } else {
-            cell.name.text = ""
+            cell.name.text = "\(pokemon.id) \(pokemon.type.rawValue) \(pokemon.subtype.rawValue)" // TEST - Set to ""
             // Tint Pokemon sprite black
             cell.sprite.image = cell.sprite.image?.withRenderingMode(.alwaysTemplate)
             cell.sprite.tintColor = .black
@@ -174,11 +224,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        // Filter Pokemons based on search
-        displayPokemones[1] = searchText == "" ?
-            pokemones : pokemones.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-        
-        tableView.reloadData()
+        filterPokemons()
     }
 }

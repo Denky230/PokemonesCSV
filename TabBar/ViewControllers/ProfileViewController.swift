@@ -25,9 +25,6 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         initCollectionView()
         
-        // Read Pokemon from CSV
-        Tools().loadPokemons()
-        
         // Tint Pikachu icon black
         pokemon.image = pokemon.image?.withRenderingMode(.alwaysTemplate)
         pokemon.tintColor = .black
