@@ -27,7 +27,7 @@ class Tools {
                 
                 let pokemon = Pokemon(
                     id: Int(row["Number"]!)!,
-                    sprite: image,
+                    sprite: UIImage(named: "profile_unselected")!,
                     name: row["Pokemon"]!,
                     type: PokemonType(rawValue: row["Type 1"]!)!,
                     subtype: PokemonType(rawValue: row["Type 2"]!)!,

@@ -111,8 +111,7 @@ class SearchViewController: UIViewController {
                     let p1type = PokemonType.allCases.firstIndex(of: p1.type)!
                     let p2type = PokemonType.allCases.firstIndex(of: p2.type)!
                     let p1matchingTypes = typesToFilter.filter { $0 == p1.type || $0 == p1.subtype }.count
-                    let p2matchingTypes = typesToFilter.filter { $0 == p2.type || $0 == p2.subtype }.count
-                    
+                    let p2matchingTypes = typesToFilter.filter { $0 == p2.type || $0 == p2.subtype }.count                    
                     if p1matchingTypes == p2matchingTypes {
                         if p1type == p2type {
                             return p1.id < p2.id
