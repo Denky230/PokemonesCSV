@@ -11,7 +11,6 @@ import UIKit
 let loggedUser: User = User(named: "Denky")
 var pokemones: [Pokemon] = [Pokemon]()
 
-var homePokemons: [Pokemon] = [Pokemon]()
 var unknownPokemons: [Pokemon] = [Pokemon]()
 
 class AppManager {

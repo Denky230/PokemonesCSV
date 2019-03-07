@@ -13,6 +13,8 @@ class HomeViewController: UIViewController {
     let POKEMON_PER_ZONE = 5
     let CELL_HEIGHT: CGFloat = 500
     
+    var homePokemons: [Pokemon] = [Pokemon]()
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -56,6 +58,23 @@ class HomeViewController: UIViewController {
         }
         return true
     }
+    func changeZone() {
+        pullRandomPokemons()
+    }
+    
+    @objc func capturePokemon(_ sender: UIButton) {
+        // Add Pokemon to User collection
+        let selectedPokemon = pokemones.filter { $0.id == sender.tag }.first!
+        loggedUser.pokemons.append(selectedPokemon)
+        // Remove Pokemon from Home list
+        homePokemons.removeAll { $0 == selectedPokemon }
+        tableView.reloadData()
+        
+        // Check if there is any Pokemon left in current zone
+        if homePokemons.isEmpty {
+            changeZone()
+        }
+    }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -90,6 +109,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.subtype.text = pokemon.subtype.rawValue
             cell.btnCapture.isHidden = false
             cell.btnCapture.tag = pokemon.id
+            cell.btnCapture.addTarget(self, action: #selector(capturePokemon), for: .touchUpInside)
             cell.questionMark.isHidden = true
         } else {
             // Tint Pokemon sprite black
