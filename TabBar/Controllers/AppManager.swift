@@ -8,7 +8,7 @@
 
 import UIKit
 
-let loggedUser: User = User(named: "Denky")
+var loggedUser: User!
 var pokemones: [Pokemon] = [Pokemon]()
 
 var unknownPokemons: [Pokemon] = [Pokemon]()
