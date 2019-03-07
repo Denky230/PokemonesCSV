@@ -10,8 +10,8 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    let ITEMS_PER_ROW: CGFloat = 3
-    let ITEM_MARGIN: CGFloat = 5.0
+    let ITEMS_PER_ROW: CGFloat  = 3
+    let ITEM_MARGIN: CGFloat    = 5.0
     
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var name: UILabel!
@@ -45,8 +45,8 @@ class ProfileViewController: UIViewController {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         let size = (collectionView.frame.width / ITEMS_PER_ROW) - ITEM_MARGIN
         layout.itemSize = CGSize(width: size, height: size)
-        layout.minimumInteritemSpacing = ITEM_MARGIN
-        layout.minimumLineSpacing = ITEM_MARGIN
+        layout.minimumLineSpacing       = ITEM_MARGIN
+        layout.minimumInteritemSpacing  = ITEM_MARGIN
         collectionView.collectionViewLayout = layout
         collectionView.delegate = self
         collectionView.dataSource = self
