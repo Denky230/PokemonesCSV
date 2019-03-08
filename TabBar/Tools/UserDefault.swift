@@ -36,7 +36,10 @@ class UserDefault {
     }
     
     func restoreUserProfileData() {
-        let name = defaults.string(forKey: Keys.name)!
+        var name = ""
+        if let n = defaults.string(forKey: Keys.name) {
+            name = n
+        }
         loggedUser = User(named: name)
     }
     func fetchPokedex() -> [Int] {
