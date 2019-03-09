@@ -11,7 +11,7 @@ import UIKit
 class TabBarController: UITabBarController {
 
     let tabs: [String] = [
-        "profile", "home", "search"
+        "profile", "home", "search", "about"
     ]
     
     override func viewDidLoad() {
