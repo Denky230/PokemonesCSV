@@ -9,8 +9,9 @@
 import UIKit
 
 class EditProfileViewController: UIViewController {
-
-    @IBOutlet weak var inputName: UITextField!
+    
+    @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var name: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,9 @@ class EditProfileViewController: UIViewController {
     }
     
     func fillUserData() {
-        inputName.text = loggedUser.name
+        name.text = loggedUser.name
+        image.image = loggedUser.image == nil ?
+            UIImage(named: "profile_unselected") : loggedUser.image
     }
     
     @objc func cancel() {
@@ -39,10 +42,10 @@ class EditProfileViewController: UIViewController {
     }
     @objc func confirm() {
         // Make sure name text field is not empty
-        let name = inputName.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        if name != "" {
+        let inName = name.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        if inName != "" {
             // Update user name
-            loggedUser.name = name
+            loggedUser.name = inName
         }
         
         // Save user data in phone memory

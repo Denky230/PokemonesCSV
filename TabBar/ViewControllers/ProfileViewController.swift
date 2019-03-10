@@ -17,26 +17,19 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var pokemon: UIImageView!
     @IBOutlet weak var pokemonCounter: UILabel!
-    @IBOutlet weak var pokeballCounter: UILabel!
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initCollectionView()
-        
-        // Tint Pikachu icon black
-        pokemon.image = pokemon.image?.withRenderingMode(.alwaysTemplate)
-        pokemon.tintColor = .black
     }
     override func viewWillAppear(_ animated: Bool) {
         // Make sure User data is up-to-date
+        name.text = loggedUser.name
         image.image = loggedUser.image == nil ?
             UIImage(named: "profile_unselected") : loggedUser.image
-        name.text = loggedUser.name
-        pokemonCounter.text = "\(loggedUser.pokemons.count)"
-        pokeballCounter.text = "\(loggedUser.pokeballs)"
-        
+        pokemonCounter.text = "\(loggedUser.pokemons.count)"        
         collectionView.reloadData()
     }
     
@@ -69,13 +62,8 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     // OnClick --> Check selected Pokemon's details
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Instantiate a PokemonDetailsViewController
-        let vc = storyboard?.instantiateViewController(withIdentifier: "pokemonDetailsVC") as! PokemonDetailsViewController
-        
-        // Assign selected Pokemon
-        vc.pokemon = loggedUser.pokemons[indexPath.item]
-        
-        // Go to PokemonDetailsViewController
-        self.navigationController?.pushViewController(vc, animated: true)
+        // Check selected Pokemon details in PokemonDetailsVC
+        let selectedPokemon = loggedUser.pokemons[indexPath.row]
+        manager.checkPokemonDetails(context: self, pokemon: selectedPokemon)
     }
 }

@@ -12,15 +12,18 @@ class HomeViewController: UIViewController {
     
     let POKEMON_PER_ZONE = 5
     let CELL_HEIGHT: CGFloat = 500
+    let TITLE: String = "Gotta catch'em all! (%d / %d)"
+    
+    @IBOutlet weak var lblTitle: UILabel!
     
     var homePokemons: [Pokemon] = [Pokemon]()
-    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pullRandomPokemons()
         initTableView()
+        updateTitle()
     }
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
@@ -29,6 +32,10 @@ class HomeViewController: UIViewController {
     func initTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    func updateTitle() {
+        lblTitle.text = String(format: TITLE, loggedUser.pokemons.count, pokemones.count)
     }
     
     func pullRandomPokemons() {
@@ -58,21 +65,39 @@ class HomeViewController: UIViewController {
         }
         return true
     }
+    
+    func isZoneCompleted() -> Bool {
+        return homePokemons.isEmpty
+    }
     func changeZone() {
         pullRandomPokemons()
     }
     
+    func isGameOver() -> Bool {
+        return loggedUser.pokemons.count == pokemones.count
+    }
+    func gameOver() {
+        print("Gz. You have become a Pokemon Master! ㅅ_ㅅ")
+    }
+    
     @objc func capturePokemon(_ sender: UIButton) {
-        // Add Pokemon to User collection
         let selectedPokemon = pokemones.filter { $0.id == sender.tag }.first!
+        // Add Pokemon to User collection
         loggedUser.pokemons.append(selectedPokemon)
         // Remove Pokemon from Home list
         homePokemons.removeAll { $0 == selectedPokemon }
         tableView.reloadData()
         
-        // Check if there is any Pokemon left in current zone
-        if homePokemons.isEmpty {
-            changeZone()
+        // Update title's Pokemon progress
+        updateTitle()
+        
+        // Post-capture checking
+        if isZoneCompleted() {
+            if isGameOver() {
+                gameOver()
+            } else {
+                changeZone()
+            }
         }
     }
 }
@@ -86,14 +111,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return CELL_HEIGHT
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Create our custom ViewController
-        let vc = storyboard?.instantiateViewController(withIdentifier: "pokemonDetailsVC") as! PokemonDetailsViewController
-        
-        // Initialize ViewController with selected Pokemon
-        vc.pokemon = homePokemons[indexPath.row]
-        
-        // Push custom ViewController 
-        self.navigationController?.pushViewController(vc, animated: true)
+        // Check selected Pokemon details in PokemonDetailsVC
+        let selectedPokemon = homePokemons[indexPath.row]
+        manager.checkPokemonDetails(context: self, pokemon: selectedPokemon)
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create custom cell

@@ -27,7 +27,7 @@ class MyButton: UIButton {
         
         layer.borderWidth   = 0.4
         layer.borderColor   = Theme.Color.border.cgColor
-        layer.cornerRadius  = frame.height / 4
+//        layer.cornerRadius  = frame.height / 4
     }
     
     func setBackgroundColor(color: UIColor, forState: UIControl.State) {

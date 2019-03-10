@@ -15,7 +15,7 @@ class CSVReader {
     var columns = Dictionary<String, [String]>()
     var delimiter = CharacterSet(charactersIn: ",")
     
-    init(content: String?, delimiter: CharacterSet, encoding: UInt) throws{
+    init(content: String?, delimiter: CharacterSet, encoding: UInt) throws {
         if let csvStringToParse = content {
             self.delimiter = delimiter
             

@@ -47,8 +47,7 @@ class Tools {
             // Add Pokemon to app Pokemon pool
             pokemones.append(pokemon)
         }
-    }
-    
+    }    
     func imageFromURL(url: String) -> UIImage {
         let url = URL(string: url)
         let data = try! Data(contentsOf: url!)
